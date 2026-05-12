@@ -7,6 +7,8 @@
 Este proyecto implementa un analizador léxico, sintáctico e intérprete básico utilizando ANTLR4 y JavaScript.
 
 ## Gramática
+
+```txt
 <pedido> ::= "pedido" <id> "{" { <item> } "}" ;
 <item> ::= <producto> ":" <cantidad> ":" <precio> ";" ;
 <producto> ::= <id> ;
@@ -14,6 +16,7 @@ Este proyecto implementa un analizador léxico, sintáctico e intérprete básic
 <precio> ::= <numero> ;
 <id> ::= [a-zA-Z]+ ;
 <numero> ::= [0-9]+ ;
+```
 
 ## Requisitos
 - Node.js
