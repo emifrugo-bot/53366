@@ -1,0 +1,5 @@
+pedido compraJuan {
+    lapiz: 10: 50;
+    cuaderno: 3: 1200;
+    goma: 1: 300;
+}

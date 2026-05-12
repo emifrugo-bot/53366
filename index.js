@@ -1,46 +1,59 @@
-import CalculatorLexer from "./generated/CalculatorLexer.js";
-import CalculatorParser from "./generated/CalculatorParser.js";
-import { CustomCalculatorListener } from "./CustomCalculatorListener.js";
-import { CustomCalculatorVisitor } from "./CustomCalculatorVisitor.js";
-import antlr4, { CharStreams, CommonTokenStream, ParseTreeWalker } from "antlr4";
-import readline from 'readline';
-import fs from 'fs';
+import PedidoLexer from "./generated/PedidoLexer.js";
+import PedidoParser from "./generated/PedidoParser.js";
+import { CustomPedidoVisitor } from "./CustomPedidoVisitor.js";
+
+import antlr4, { CharStreams, CommonTokenStream } from "antlr4";
+import readline from "readline";
+import fs from "fs";
 
 async function main() {
     let input;
 
-    // Intento leer la entrada desde el archivo input - en forma sincrona.
+    // Intento leer la entrada desde el archivo input.txt
     try {
-        input = fs.readFileSync('input.txt', 'utf8');
+        input = fs.readFileSync("input.txt", "utf8");
     } catch (err) {
         // Si no es posible leer el archivo, solicitar la entrada del usuario por teclado
-        input = await leerCadena(); // Simula lectura síncrona
+        input = await leerCadena();
         console.log(input);
     }
 
-    // Proceso la entrada con el analizador e imprimo el arbol de analisis en formato texto
+    // Proceso la entrada con el analizador
     let inputStream = CharStreams.fromString(input);
-    let lexer = new CalculatorLexer(inputStream);
+    let lexer = new PedidoLexer(inputStream);
     let tokenStream = new CommonTokenStream(lexer);
-    let parser = new CalculatorParser(tokenStream);
-    let tree = parser.prog();
-    
+    let parser = new PedidoParser(tokenStream);
+
+    // Regla inicial de la gramática Pedido.g4
+    let tree = parser.pedido();
+
     // Verifico si se produjeron errores
     if (parser.syntaxErrorsCount > 0) {
         console.error("\nSe encontraron errores de sintaxis en la entrada.");
-    } 
-    else {
+    } else {
         console.log("\nEntrada válida.");
+
+        // Muestro el árbol de derivación
         const cadena_tree = tree.toStringTree(parser.ruleNames);
         console.log(`Árbol de derivación: ${cadena_tree}`);
 
-        // Utilizo un listener y un walker para recorrer el arbol e indicar cada vez que reconoce una sentencia (stat)
-        //const listener = new CustomCalculatorListener();
-        // ParseTreeWalker.DEFAULT.walk(listener, tree);
+        // Muestro la tabla de lexemas y tokens
+        console.log("\nTabla de lexemas y tokens:");
+        console.log("---------------------------");
 
-        // Utilizo un visitor para visitar los nodos que me interesan de mi arbol
-        const visitor = new CustomCalculatorVisitor();
-        visitor.visit(tree);   
+        tokenStream.fill();
+
+        for (const token of tokenStream.tokens) {
+            if (token.type !== antlr4.Token.EOF) {
+                const tokenName = PedidoLexer.symbolicNames[token.type];
+                console.log(`Lexema: ${token.text} | Token: ${tokenName}`);
+            }
+        }
+
+        // Uso el visitor para interpretar el pedido
+        console.log("\nInterpretación:");
+        const visitor = new CustomPedidoVisitor();
+        visitor.visit(tree);
     }
 }
 
@@ -51,7 +64,7 @@ function leerCadena() {
     });
 
     return new Promise(resolve => {
-        rl.question("Ingrese una cadena: ", (answer) => {
+        rl.question("Ingrese una cadena: ", answer => {
             rl.close();
             resolve(answer);
         });

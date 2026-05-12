@@ -1,0 +1,3 @@
+pedido clienteA {
+    manzana: 2: 100 
+}

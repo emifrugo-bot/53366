@@ -1,0 +1,13 @@
+PEDIDO=1
+ID=2
+NUMERO=3
+LLAVE_ABRE=4
+LLAVE_CIERRA=5
+DOSPUNTOS=6
+PUNTOCOMA=7
+WS=8
+'pedido'=1
+'{'=4
+'}'=5
+':'=6
+';'=7

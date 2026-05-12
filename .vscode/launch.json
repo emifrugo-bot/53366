@@ -1,14 +1,15 @@
 {
-    "version": "2.0.0",
+    "version": "0.2.0",
     "configurations": [
-    {
-    "name": "Debug ANTLR4 grammar",
-    "type": "antlr-debug",
-    "request": "launch",
-    "input": "input.txt",
-    "grammar": "Calculator.g4",
-    "printParseTree": true,
-    "visualParseTree": true
-    }
+        {
+            "type": "antlr-debug",
+            "request": "launch",
+            "name": "Debug Pedido.g4",
+            "grammar": "Pedido.g4",
+            "input": "input.txt",
+            "startRule": "pedido",
+            "printParseTree": true,
+            "visualParseTree": true
+        }
     ]
 }
