@@ -1,4 +1,4 @@
-// Generated from Pedido.g4 by ANTLR 4.13.2
+// Generated from c:/Users/Usuario/ssl-antlr-calculator/antlr-pedido-project/Pedido.g4 by ANTLR 4.13.2
 // jshint ignore: start
 import antlr4 from 'antlr4';
 

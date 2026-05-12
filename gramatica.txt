@@ -1,0 +1,7 @@
+<pedido> ::= "pedido" <id> "{" { <item> } "}" ;
+<item> ::= <producto> ":" <cantidad> ":" <precio> ";" ;
+<producto> ::= <id> ;
+<cantidad> ::= <numero> ;
+<precio> ::= <numero> ;
+<id> ::= [a-zA-Z]+ ;
+<numero> ::= [0-9]+ ;
